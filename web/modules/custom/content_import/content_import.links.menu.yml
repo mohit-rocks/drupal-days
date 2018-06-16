@@ -1,0 +1,6 @@
+content_import.import_form:
+  title: 'Product Import'
+  route_name: content_import.import_form
+  description: 'Provides functionality to import products'
+  parent: system.admin_config_system
+  weight: 99

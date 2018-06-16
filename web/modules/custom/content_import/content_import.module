@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains content_import.module.
+ */
+
+use Drupal\file\Entity\File;
+
+/**
+ * Implements hook_migration_plugins_alter().
+ */
+function content_import_migration_plugins_alter(array &$migrations) {
+  foreach ($migrations as &$migration) {
+    if (isset($migration['migration_tags']) &&
+      in_array('content_import', $migration['migration_tags'])) {
+
+      // Reset config factory cache, as in some cases it is reading older config
+      // values.
+      \Drupal::configFactory()->reset('content_import.import');
+
+      // Get file path and set it as source path.
+      $config = \Drupal::config('content_import.import');
+      $products_csv = $config->get('products_csv');
+      $file = File::load($products_csv[0]);
+      $path =& $migration['source']['path'];
+      $path = $file->getFileUri();
+
+      // Get the language from config and set it as content language.
+      $langcode =& $migration['process']['langcode']['default_value'];
+      $langcode = $config->get('language');
+    }
+  }
+}

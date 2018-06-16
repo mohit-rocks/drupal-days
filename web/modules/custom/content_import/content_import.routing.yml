@@ -1,0 +1,9 @@
+content_import.import_form:
+  path: '/admin/content/import/product'
+  defaults:
+    _form: '\Drupal\content_import\Form\ImportForm'
+    _title: 'Import Content'
+  requirements:
+    _permission: 'access content import page'
+  options:
+    _admin_route: TRUE

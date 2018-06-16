@@ -1,0 +1,22 @@
+uuid: e7c411ca-a786-44d4-a02d-104fe7ab65b4
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.tags
+  module:
+    - taxonomy
+_core:
+  default_config_hash: o5duwyS1CTHx3tYOZhuu91kspe8VQjQsnwZjAJv9njk
+id: taxonomy_term.tags
+targetEntityType: taxonomy_term
+bundle: tags
+types:
+  - 'schema:Thing'
+fieldMappings:
+  name:
+    properties:
+      - 'schema:name'
+  description:
+    properties:
+      - 'schema:description'

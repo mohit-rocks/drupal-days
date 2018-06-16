@@ -1,0 +1,21 @@
+uuid: 954f4d1c-f153-46f4-8227-9ffa0e48d32a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_product_introduction
+    - node.type.product
+  module:
+    - text
+id: node.product.field_product_introduction
+field_name: field_product_introduction
+entity_type: node
+bundle: product
+label: Introduction
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

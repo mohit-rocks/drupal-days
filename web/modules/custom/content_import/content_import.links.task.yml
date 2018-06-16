@@ -1,0 +1,5 @@
+content_import:
+  route_name: content_import.import_form
+  title: Import Products
+  base_route: system.admin_content
+  weight: 20

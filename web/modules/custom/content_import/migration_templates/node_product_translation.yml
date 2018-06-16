@@ -1,0 +1,56 @@
+id: node_product_translation
+label: "Product Content"
+migration_tags:
+  - content_import
+deriver: Drupal\content_import\Plugin\migrate\ProductNodeDeriver
+source:
+  plugin: csv
+  path: 'public://example.csv'
+  header_row_count: 1
+  keys:
+    - 'ID'
+  fields:
+    ID: Unique identifier for each product.
+    Product name: Name of the product.
+    Description 1: Product description.
+  constants:
+    lang_en: en
+process:
+  type:
+    plugin: default_value
+    default_value: product
+  nid:
+    plugin: migration
+    source: ID
+    migration: node_product
+  content_translation_source: constants/lang_en
+  title:
+    -
+      plugin: skip_on_empty
+      method: row
+      source: Product name
+      message: "Row skipped due to empty Product name"
+  langcode:
+    plugin: default_value
+    default_value: "en"
+  field_product_id:
+    -
+      plugin: skip_on_empty
+      method: row
+      source: ID
+      message: "Row skipped due to empty ID value"
+  field_product_introduction/value: Description 1
+  field_product_introduction/format:
+      plugin: default_value
+      default_value: basic_html
+destination:
+  plugin: entity:node
+  translations: true
+dependencies:
+  enforced:
+    module:
+      - content_import
+migration_dependencies:
+  required:
+    - node_product
+  optional: {}
