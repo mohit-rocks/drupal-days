@@ -22,11 +22,11 @@ drupal_composer_dependencies: []
 
 # Minimum required versions.
 drupalvm_vagrant_version_min: '1.8.6'
-drupalvm_ansible_version_min: '2.2'  
+drupalvm_ansible_version_min: '2.2'
 
 # Set this to 'false' if you don't need to install drupal (using the drupal_*
 # settings below), but instead copy down a database (e.g. using drush sql-sync).
-drupal_install_site: true
+drupal_install_site: false
 
 # Settings for installing a Drupal site if 'install_site:' is 'true'.
 drupal_major_version: 8
@@ -78,4 +78,11 @@ installed_extras:
   #- selenium
 
 # Other secure defaults.
-apache_packages_state: installed
+apache_packages_state: latest
+
+# Other configuration.
+dashboard_install_dir: /var/www/dashboard
+known_hosts_path: ~/.ssh/known_hosts
+hostname_configure: true
+hostname_fqdn: "{{ vagrant_hostname }}"
+ssh_home: "{{ drupal_core_path }}"
