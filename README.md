@@ -1,8 +1,6 @@
 # Sample Project Repository for running and evaluating how dynamic migration works
 
-Note: This is pre-built setup for demo.
-
-If you want to add Drupal VM to your projects via composer, use the following steps.
+Note: This is pre-built setup for demo for session [Writing Dynamic Migration](https://lisbon2018.drupaldays.org/sessions/writing-dynamic-migrations) at Drupal Days Lisbon 2018.
 
 ## Steps
 
@@ -25,6 +23,10 @@ Install site using `config installer` profile. By default it will have three lan
 It will also install `product` content type required for migration along with other multilingual and translation related settings.
 
 ## Import content
+
+You can find dashboard page at following url: http://dashboard.drupaldays.local
+
+Site will be installed at [http://drupaldays.local](http://drupaldays.local). If it is not installed then you can visit `install.php` and select `config_installer` profile.
 
 1. Goto `/admin/content/import/product`.
 
