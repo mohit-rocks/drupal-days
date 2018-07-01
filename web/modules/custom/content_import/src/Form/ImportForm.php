@@ -14,6 +14,7 @@ use Drupal\file\Entity\File;
 use Drupal\migrate\MigrateExecutable;
 use Drupal\migrate\MigrateMessage;
 use Drupal\migrate\Plugin\MigrationInterface;
+use Drupal\migrate_plus\Entity\Migration;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\language\ConfigurableLanguageManager;
 
@@ -140,7 +141,7 @@ class ImportForm extends ConfigFormBase {
       'operations' => [
         [
           [ImportForm::class, 'run'],
-          [$language],
+          [$language, $file],
         ],
       ],
       'finished' => [
@@ -155,12 +156,14 @@ class ImportForm extends ConfigFormBase {
    *
    * @param string $language
    *   Selected language in import form.
+   * @param \Drupal\file\FileInterface $file
+   *   Uploaded file entity.
    * @param array $context
    *   Context variable for storing batch related variables.
    *
    * @throws
    */
-  public static function run($language, &$context) {
+  public static function run($language, $file, &$context) {
     $context['sandbox']['messages'] = [];
     $context['results']['failures'] = 0;
     $context['results']['successes'] = 0;
@@ -172,6 +175,19 @@ class ImportForm extends ConfigFormBase {
       $migration = \Drupal::service('plugin.manager.migration')->createInstance('node_product_translation:' . $language);
     }
 
+    // Dynamic value update starts here.
+    //
+    // Update source csv file path and destination language.
+    $source = $migration->get('source');
+    $source['path'] = $file->getFileUri();
+    $migration->set('source', $source);
+
+    // Update language.
+    $process = $migration->get('process');
+    $process['langcode']['default_value'] = $language;
+    $migration->set('process', $process);
+
+    // Dynamic value update ends here.
 
     // Check if migration exists and not running. If it is running then we
     // should stop migration, reset migration and rollback migration.

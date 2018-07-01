@@ -13,8 +13,6 @@ source:
     ID: Unique identifier for each product.
     Product name: Name of the product.
     Description 1: Product description.
-  constants:
-    lang_en: en
 process:
   type:
     plugin: default_value
